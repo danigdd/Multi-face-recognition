@@ -2,29 +2,12 @@ import face_recognition
 import numpy as np
 import cv2
 import os
+from frame_processing import FrameProcessing
 
 path = 'data/known-faces'
-images = []
-names = []
 
-stored_data = os.listdir(path)
-print(stored_data)
-
-for element in stored_data:
-    if element != '.DS_Store':
-        names.append(os.path.splitext(element)[0])
-        img = cv2.imread(f'{path}/{element}')
-        images.append(img)
-
-def find_encodings(images):
-    encodesList = []
-    for img in images:
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        encodes = face_recognition.face_encodings(img)[0]
-        encodesList.append(encodes)
-    return encodesList
-
-known_encodes = find_encodings(images)
+known_encodes = FrameProcessing("data", path)
+known_encodes.optionChoosen()
 print("Encoding complete")
 
 live_capture = cv2.VideoCapture(0)
@@ -46,15 +29,15 @@ while True:
 
     if face_encodings:
         for faceLocation, faceEncoding in zip(face_locations, face_encodings):
-            match = face_recognition.compare_faces(known_encodes, faceEncoding)
-            distance = face_recognition.face_distance(known_encodes, faceEncoding)
+            match = face_recognition.compare_faces(known_encodes._encodesList, faceEncoding)
+            distance = face_recognition.face_distance(known_encodes._encodesList, faceEncoding)
             print(distance)
             name = "unknown"
         
             if (len(distance) > 0):
                 lowest_match = np.argmin(distance)
                 if match[lowest_match] == True and distance[lowest_match] < 0.6:
-                    name = names[lowest_match].upper()
+                    name = known_encodes.namesFaces[lowest_match].upper()
                     previous_name = name
                     print(name)
                     current_frame_count = 0
