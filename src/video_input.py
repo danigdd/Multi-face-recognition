@@ -4,10 +4,6 @@ import face_recognition
 from frame_processing import FrameProcessing
 
 class VideoInput(Singleton):
-    BUFFER_FRAME = 6
-    CURRENT_FRAME_COUNT = 0
-    PREVIOUS_NAME = ""
-    IS_MATCH = False
 
     def __init__(self):
         self._live_capture = cv2.VideoCapture(0)
@@ -23,11 +19,8 @@ class VideoInput(Singleton):
             ret, current_frame = self._live_capture.read()
 
             processed_encodings = FrameProcessing("live-video", frame=current_frame)
+            current_frameframe = cv2.cvtColor(current_frame, cv2.COLOR_RGB2BGR)
+            cv2.imshow("Webcam", current_frame)
+            cv2.waitKey(1)
 
-            y1, x2, y2, x1 = faceLocation
-            if name =="unknown":
-                cv2.rectangle(frame, (x1, y1), (x2, y2), (255,0,0), 2)
-                cv2.putText(frame, 'unknown', (faceLocation[3], faceLocation[2] + 30), cv2.FONT_HERSHEY_COMPLEX, 1, (255,0,0), 1)
-                continue
-            cv2.rectangle(frame, (x1, y1), (x2, y2), (255,0,0), 2)
-            cv2.putText(frame, f'{name}', (faceLocation[3], faceLocation[2] + 30), cv2.FONT_HERSHEY_COMPLEX, 1, (255,0,0), 1)
+            
