@@ -4,6 +4,7 @@ import face_recognition
 import numpy as np
 from video_output import VideoOutput
 from singleton import Singleton
+from attendance_loader import Attendance_Loader
 
 class FrameProcessing(Singleton):
     BUFFER_FRAME = 6
@@ -56,6 +57,7 @@ class FrameProcessing(Singleton):
                     FrameProcessing.PREVIOUS_NAME = name
                     FrameProcessing.CURRENT_FRAME_COUNT = 0
                     FrameProcessing.IS_MATCH = True
+                    mark_attendance = Attendance_Loader(name)
                 else:
                     FrameProcessing.IS_MATCH = False
                     FrameProcessing.CURRENT_FRAME_COUNT = FrameProcessing.BUFFER_FRAME
