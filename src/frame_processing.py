@@ -24,7 +24,7 @@ class FrameProcessing:
                 self.namesFaces.append(os.path.splitext(element)[0])
                 imgFile = cv2.imread(f'{path}/{element}')
                 self.imagesFaces.append(imgFile)
-                encodesList = []
+
 
         for img in self.imagesFaces:
             img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)

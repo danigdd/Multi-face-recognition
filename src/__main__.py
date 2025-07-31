@@ -4,7 +4,7 @@ import cv2
 import os
 from frame_processing import FrameProcessing
 
-path = 'data/known-faces'
+path = 'data/known-faces/'
 
 known_encodes = FrameProcessing("data", path)
 known_encodes.optionChoosen()
