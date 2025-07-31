@@ -17,5 +17,5 @@ class VideoOutput:
             self._draw_box(self._frame, self._x1, self._y1, self._x2, self._y2, self._name)
 
     def _draw_box(self, frame, x1: int, y1: int, x2: int, y2: int, label: str):
-        cv2.rectangle(frame, (x1, y1), (x2, y2), (255, 0, 0), 2)
-        cv2.putText(frame, label, (x1, y2 + 30), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 0, 0), 1)
+        cv2.rectangle(frame, (x1, y1), (x2, y2), color=(255, 255, 255), thickness=2)
+        cv2.putText(frame, label, (x1, y2 + 40), cv2.FONT_HERSHEY_COMPLEX, 2, color=(255, 255, 255), thickness=2)

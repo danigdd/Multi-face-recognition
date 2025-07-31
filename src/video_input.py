@@ -19,7 +19,6 @@ class VideoInput(Singleton):
             ret, current_frame = self._live_capture.read()
 
             processed_encodings = FrameProcessing("live-video", frame=current_frame)
-            current_frameframe = cv2.cvtColor(current_frame, cv2.COLOR_RGB2BGR)
             cv2.imshow("Webcam", current_frame)
             cv2.waitKey(1)
 
