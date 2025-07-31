@@ -3,6 +3,7 @@ import numpy as np
 import cv2
 import os
 from frame_processing import FrameProcessing
+from video_input import VideoInput
 
 path = 'data/known-faces/'
 
@@ -10,17 +11,17 @@ known_encodes = FrameProcessing("data", path)
 known_encodes.optionChoosen()
 print("Encoding complete")
 
-live_capture = cv2.VideoCapture(0)
+camera = VideoInput()
 
 buffer_frame = 4
 current_frame_count = 0
 previous_name = "unknown"
 is_match = False
-if not live_capture.isOpened():
+if not camera._live_capture.isOpened():
     print("Cannot open camera")
     exit()
 while True:
-    ret, frame = live_capture.read()
+    ret, frame = camera._live_capture.read()
 
     frame = cv2.resize(frame, (0,0), None, 0.25, 0.25)
     frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
